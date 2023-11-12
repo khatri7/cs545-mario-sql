@@ -16,4 +16,3 @@ Worlds Table:
 world_id
 world_name
 world_level
-required_character_level
