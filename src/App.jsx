@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
+import { Field, Form, Formik } from "formik";
+import { isValidSelectQuery } from "./utils/helpers";
 
 const supabase = createClient(
 	import.meta.env.VITE_SUPABASE_PROJECT_URL,
@@ -7,23 +9,22 @@ const supabase = createClient(
 );
 
 function App() {
-	const [countries, setCountries] = useState([]);
-
-	useEffect(() => {
-		getCountries();
-	}, []);
-
-	async function getCountries() {
-		const { data } = await supabase.from("countries").select();
-		setCountries(data);
-	}
-
 	return (
-		<ul>
-			{countries.map((country) => (
-				<li key={country.name}>{country.name}</li>
-			))}
-		</ul>
+		<div>
+			<Formik
+				initialValues={{
+					query: "",
+				}}
+				onSubmit={(values) => {}}
+			>
+				{() => (
+					<Form>
+						<Field type="text" name="query" />
+						<button type="submit">Submit</button>
+					</Form>
+				)}
+			</Formik>
+		</div>
 	);
 }
 
