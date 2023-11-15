@@ -5,11 +5,7 @@ const opt = {
 const parser = new Parser();
 
 export function isValidSelectQuery(query) {
-	try {
-		const parsedQuery = parser.astify(query, opt);
-		return parsedQuery[0].type === "select";
-	} catch (error) {
-		console.error(`Error parsing query: ${error.message}`);
-		return false;
-	}
+	const parsedQuery = parser.astify(query, opt);
+	if (parsedQuery[0].type !== "select") throw new Error("Invalid Query");
+	return parsedQuery[0];
 }
