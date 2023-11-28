@@ -36,30 +36,24 @@ function App() {
 				.from(tableName)
 				.select(columns)
 				.match(conditions || {});
-			if (data?.length === 0) throw new Error("No Results");
-			const headers = Object.keys(data[0]).map(
-				(keyName) => `<th>${keyName}</th>`
-			);
-			const tRows = data.map((character) => {
-				const rowData = Object.values(character).map(
-					(val) => `<td>${val}</td>`
+			let htmlTable = "<p>0 rows returned</p>";
+			if (data?.length && data.length > 0) {
+				const headers = Object.keys(data[0]).map(
+					(keyName) => `<th>${keyName}</th>`
 				);
-				return `<tr>${rowData.join("")}</tr>`;
-			});
+				const tRows = data.map((character) => {
+					const rowData = Object.values(character).map(
+						(val) => `<td>${val}</td>`
+					);
+					return `<tr>${rowData.join("")}</tr>`;
+				});
+				htmlTable = `<table><thead><tr>${headers.join(
+					""
+				)}</tr></thead><tbody>${tRows.join("")}</tbody></table>`;
+			}
 			if (sqlTerm.current) {
-				const htmlTable = `
-			    <table>
-			      <thead>
-			  <tr>
-			    ${headers.join("")}
-			  </tr>
-			      </thead>
-			<tbody>
-			  ${tRows.join("")}
-			</tbody>
-			    </table>
-			  `;
 				sqlTerm.current.innerHTML += htmlTable;
+				sqlTerm.current.scrollTop = sqlTerm.current.scrollHeight;
 			}
 		} catch (e) {
 			console.error(e);
@@ -95,8 +89,11 @@ function App() {
 						height: "15rem",
 						maxWidth: "500px",
 						overflow: "scroll",
+						display: "flex",
+						flexDirection: "column",
+						gap: "5rem",
 					}}
-				></Box>
+				/>
 				<Box
 					sx={{
 						width: "100%",
