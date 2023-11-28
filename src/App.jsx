@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { Field, Form, Formik } from "formik";
-import { isValidSelectQuery } from "./utils/helpers";
+import { extractConditions, isValidSelectQuery } from "./utils/helpers";
 import "./App.css";
 import mario from "./assets/images/mario.png";
 import king from "./assets/images/king.png";
@@ -20,44 +20,6 @@ const supabase = createClient(
 	import.meta.env.VITE_SUPABASE_PUBLIC_KEY
 );
 
-const characters = [
-	{
-		character_id: 1,
-		character_name: "Mario",
-		character_health: 100,
-		character_level: 1,
-		character_status: "Ally",
-	},
-	{
-		character_id: 2,
-		character_name: "Luigi",
-		character_health: 95,
-		character_level: 1,
-		character_status: "Ally",
-	},
-	{
-		character_id: 3,
-		character_name: "Bowser",
-		character_health: 120,
-		character_level: 5,
-		character_status: "Enemy",
-	},
-	{
-		character_id: 4,
-		character_name: "Goomba",
-		character_health: 20,
-		character_level: 1,
-		character_status: "Enemy",
-	},
-	{
-		character_id: 5,
-		character_name: "Toad",
-		character_health: 50,
-		character_level: 2,
-		character_status: "Ally",
-	},
-];
-
 function App() {
 	const sqlTerm = useRef();
 
@@ -68,7 +30,13 @@ function App() {
 			const columns = parsedQuery.columns
 				?.map((column) => column?.expr?.column)
 				.join(", ");
-			const { data } = await supabase.from(tableName).select(columns);
+			let conditions = {};
+			if (parsedQuery.where) conditions = extractConditions(parsedQuery.where);
+			const { data } = await supabase
+				.from(tableName)
+				.select(columns)
+				.match(conditions || {});
+			if (data?.length === 0) throw new Error("No Results");
 			const headers = Object.keys(data[0]).map(
 				(keyName) => `<th>${keyName}</th>`
 			);
@@ -82,13 +50,13 @@ function App() {
 				const htmlTable = `
 			    <table>
 			      <thead>
-              <tr>
-                ${headers.join("")}
-              </tr>
+			  <tr>
+			    ${headers.join("")}
+			  </tr>
 			      </thead>
-            <tbody>
-              ${tRows.join("")}
-            </tbody>
+			<tbody>
+			  ${tRows.join("")}
+			</tbody>
 			    </table>
 			  `;
 				sqlTerm.current.innerHTML += htmlTable;
