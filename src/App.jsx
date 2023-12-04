@@ -1,7 +1,11 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { Field, Form, Formik } from "formik";
-import { extractConditions, isValidSelectQuery } from "./utils/helpers";
+import {
+	areDeeplyEqual,
+	extractConditions,
+	isValidSelectQuery,
+} from "./utils/helpers";
 import "./App.css";
 import mario from "./assets/images/mario.png";
 import king from "./assets/images/king.png";
@@ -14,6 +18,7 @@ import {
 	TextField,
 	TextareaAutosize,
 } from "@mui/material";
+import { questions } from "./utils/questions";
 
 const supabase = createClient(
 	import.meta.env.VITE_SUPABASE_PROJECT_URL,
@@ -22,6 +27,8 @@ const supabase = createClient(
 
 function App() {
 	const sqlTerm = useRef();
+
+	const [questionNumber, setQuestionNumber] = useState(1);
 
 	async function executeQuery(query) {
 		try {
@@ -36,6 +43,10 @@ function App() {
 				.from(tableName)
 				.select(columns)
 				.match(conditions || {});
+			const isMatch = areDeeplyEqual(
+				data || [],
+				questions[questionNumber - 1].response
+			);
 			let htmlTable = "<p>0 rows returned</p>";
 			if (data?.length && data.length > 0) {
 				const headers = Object.keys(data[0]).map(
@@ -54,6 +65,14 @@ function App() {
 			if (sqlTerm.current) {
 				sqlTerm.current.innerHTML += htmlTable;
 				sqlTerm.current.scrollTop = sqlTerm.current.scrollHeight;
+			}
+			if (!isMatch) {
+				sqlTerm.current.innerHTML +=
+					"<p style='color: red; margin-top: -5rem;'>That doesn't look right!</p>";
+			} else {
+				sqlTerm.current.innerHTML +=
+					"<p style='color: green; margin-top: -5rem;'>Awesome!</p>";
+				setQuestionNumber(questionNumber + 1);
 			}
 		} catch (e) {
 			console.error(e);
