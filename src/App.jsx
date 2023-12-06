@@ -19,6 +19,7 @@ import {
 	TextareaAutosize,
 } from "@mui/material";
 import { questions } from "./utils/questions";
+import TableNames from "./components/TableNames";
 
 const supabase = createClient(
 	import.meta.env.VITE_SUPABASE_PROJECT_URL,
@@ -164,6 +165,7 @@ function App() {
 					</Formik>
 				</Box>
 				{/* <img src={king} alt="King" className="king"/> */}
+				<TableNames />
 			</Container>
 		</div>
 	);
