@@ -1,14 +1,10 @@
 .background {
+	margin: 0;
+  	padding: 0;
 	background-image: url(./assets/images/background.jpg);
 	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-	min-height: 100vh;
-	width: 100vw;
-	display: flex;
-	justify-content: center;
-	overflow: hidden;
-	align-items: center;
+  	background-position: center bottom;
+  	background-attachment: fixed;
 }
 body {
 	margin: 0;
@@ -26,19 +22,19 @@ body {
 }
 
 .mario {
+	position: fixed;
 	height: 150px;
-	position: relative;
-	right: 46%;
-	top: 25rem;
 	scale: 1.5;
+	right: 90%;
+	bottom: 8rem;
 }
 
 .king {
+	position: fixed;
 	height: 150px;
 	scale: 1.5;
-	position: relative;
-	bottom: 20rem;
-	left: 40%;
+	left: 89%;
+	bottom: 8rem;
 }
 
 @media only screen and (max-width: 600px) {
