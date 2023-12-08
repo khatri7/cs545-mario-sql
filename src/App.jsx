@@ -19,6 +19,7 @@ import {
 	TextareaAutosize,
 } from "@mui/material";
 import { questions } from "./utils/questions";
+import TableNames from "./components/TableNames";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 
@@ -32,29 +33,49 @@ const driverObj2 = driver({
 	smoothScroll: false,
 	showProgress: false,
 	showButtons: ["next"],
-	overlayColor: 'none',
+	overlayColor: "none",
 	steps: [
-	  { element: '.mario',popover: { description: 'Dialogue 1' } },
-	  { element: '.king', popover: { description: 'Dialogue 2' } },
-	]
+		{ element: ".mario", popover: { description: "Dialogue 1" } },
+		{ element: ".king", popover: { description: "Dialogue 2" } },
+	],
 });
 
 const driverObj = driver({
 	showProgress: true,
 	smoothScroll: false,
 	steps: [
-	  { popover: { title: 'Welcome to MarioSQL', description: 'This is a fun way to learm basic SQL queries' } },
-	  { element: '.form', popover: { title: 'Welcome to MarioSQL', description: 'You can write your queries here' } },
-	  { element: '.output-box', popover: { title: 'Welcome to MarioSQL', description: 'You will be able to see the output here' } },
-	  { popover: { title: 'Lets get started', description: 'There are 7 levels in this game. The dificulty will increase as you progress!' } },
+		{
+			popover: {
+				title: "Welcome to MarioSQL",
+				description: "This is a fun way to learm basic SQL queries",
+			},
+		},
+		{
+			element: ".form",
+			popover: {
+				title: "Welcome to MarioSQL",
+				description: "You can write your queries here",
+			},
+		},
+		{
+			element: ".output-box",
+			popover: {
+				title: "Welcome to MarioSQL",
+				description: "You will be able to see the output here",
+			},
+		},
+		{
+			popover: {
+				title: "Lets get started",
+				description:
+					"There are 7 levels in this game. The dificulty will increase as you progress!",
+			},
+		},
 	],
 });
 
-
 // driverObj.drive();
 driverObj2.drive();
-
-
 
 function App() {
 	const sqlTerm = useRef();
@@ -195,7 +216,8 @@ function App() {
 						)}
 					</Formik>
 				</Box>
-				<img src={king} alt="King" className="king"/>
+				<img src={king} alt="King" className="king" />
+				<TableNames />
 			</Container>
 		</div>
 	);
