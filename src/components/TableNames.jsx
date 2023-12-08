@@ -15,6 +15,7 @@ const TableNames = () => {
 				alignItems: "center",
 				gap: "0.8rem",
 			}}
+			className="table-names"
 		>
 			<div>
 				characters [character_id, character_name, character_health,

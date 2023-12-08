@@ -28,18 +28,6 @@ const supabase = createClient(
 	import.meta.env.VITE_SUPABASE_PUBLIC_KEY
 );
 
-const driverObj2 = driver({
-	animate: false,
-	smoothScroll: false,
-	showProgress: false,
-	showButtons: ["next"],
-	overlayColor: "none",
-	steps: [
-		{ element: ".mario", popover: { description: "Dialogue 1" } },
-		{ element: ".king", popover: { description: "Dialogue 2" } },
-	],
-});
-
 const driverObj = driver({
 	showProgress: true,
 	smoothScroll: false,
@@ -60,11 +48,19 @@ const driverObj = driver({
 		{
 			element: ".output-box",
 			popover: {
-				title: "Welcome to MarioSQL",
+				title: "Output",
 				description: "You will be able to see the output here",
 			},
 		},
 		{
+			element: ".table-names",
+			popover: {
+				title: "Databases",
+				description: "Here you can see all the tables: characters, inventory, worlds. The column names of the tables are in brackets. You will need this information often in the game!",
+			},
+		},
+		{
+			
 			popover: {
 				title: "Lets get started",
 				description:
@@ -74,8 +70,7 @@ const driverObj = driver({
 	],
 });
 
-// driverObj.drive();
-driverObj2.drive();
+driverObj.drive(); 
 
 function App() {
 	const sqlTerm = useRef();
