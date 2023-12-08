@@ -1,10 +1,10 @@
 .background {
 	margin: 0;
-  	padding: 0;
+	padding: 0;
 	background-image: url(./assets/images/background.jpg);
 	background-size: cover;
-  	background-position: center bottom;
-  	background-attachment: fixed;
+	background-position: center bottom;
+	background-attachment: fixed;
 }
 body {
 	margin: 0;
@@ -76,4 +76,17 @@ h2 {
 /* Optional: Add a box shadow to the table for a subtle depth effect */
 table {
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dialogue-balloon {
+	position: relative;
+	background-color: #ffffff;
+	padding: 20px;
+	border-radius: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	margin-bottom: 10px;
+}
+
+.dialogue-content {
+	margin-bottom: 10px;
 }

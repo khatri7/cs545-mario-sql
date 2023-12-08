@@ -22,6 +22,7 @@ import { questions } from "./utils/questions";
 import TableNames from "./components/TableNames";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
+import Question from "./components/Question";
 
 const supabase = createClient(
 	import.meta.env.VITE_SUPABASE_PROJECT_URL,
@@ -56,11 +57,11 @@ const driverObj = driver({
 			element: ".table-names",
 			popover: {
 				title: "Databases",
-				description: "Here you can see all the tables: characters, inventory, worlds. The column names of the tables are in brackets. You will need this information often in the game!",
+				description:
+					"Here you can see all the tables: characters, inventory, worlds. The column names of the tables are in brackets. You will need this information often in the game!",
 			},
 		},
 		{
-			
 			popover: {
 				title: "Lets get started",
 				description:
@@ -70,7 +71,7 @@ const driverObj = driver({
 	],
 });
 
-driverObj.drive(); 
+driverObj.drive();
 
 function App() {
 	const sqlTerm = useRef();
@@ -143,6 +144,7 @@ function App() {
 				<Typography variant="h3" sx={{ fontWeight: "bold" }}>
 					Mario SQL
 				</Typography>
+				<Question question={questions[questionNumber - 1].question} />
 				<Box
 					elevation={3}
 					ref={sqlTerm}
