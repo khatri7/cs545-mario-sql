@@ -49,10 +49,11 @@ const driverObj = driver({
 			},
 		},
 		{
-			element: ".form",
+			element: ".dialogue-balloon",
 			popover: {
-				title: "Welcome to MarioSQL",
-				description: "You can write your queries here",
+				title: "Questions",
+				description:
+					"Here you can see Question that you need to answer to progress to the next level!",
 			},
 		},
 		{
@@ -60,6 +61,13 @@ const driverObj = driver({
 			popover: {
 				title: "Output",
 				description: "You will be able to see the output here",
+			},
+		},
+		{
+			element: ".form",
+			popover: {
+				title: "Queries",
+				description: "You can write your queries here",
 			},
 		},
 		{
