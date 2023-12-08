@@ -99,4 +99,9 @@ export const questions = [
 			},
 		],
 	},
+	{
+		question:
+			"Arrange the names of enemies by their levels, determining the sequence for defeating them.",
+		response: [],
+	},
 ];

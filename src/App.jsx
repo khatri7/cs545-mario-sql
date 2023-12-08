@@ -9,6 +9,8 @@ import {
 import "./App.css";
 import mario from "./assets/images/mario.png";
 import king from "./assets/images/king.png";
+import turtle from "./assets/images/turtle.png";
+import mushroom from "./assets/images/mushroom.png";
 import {
 	Container,
 	Paper,
@@ -28,6 +30,13 @@ const supabase = createClient(
 	import.meta.env.VITE_SUPABASE_PROJECT_URL,
 	import.meta.env.VITE_SUPABASE_PUBLIC_KEY
 );
+
+const img2Src = {
+	1: undefined,
+	2: king,
+	3: turtle,
+	4: mushroom,
+};
 
 const driverObj = driver({
 	showProgress: true,
@@ -213,7 +222,10 @@ function App() {
 						)}
 					</Formik>
 				</Box>
-				<img src={king} alt="King" className="king" />
+				{img2Src[questionNumber] && (
+					<img src={img2Src[questionNumber]} alt="second" className="king" />
+				)}
+
 				<TableNames />
 			</Container>
 		</div>
